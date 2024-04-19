@@ -4,10 +4,28 @@ This is a template project for demonstrating how to integrate TypeScript with No
 
 Install the latest version of [Node.js](https://nodejs.org/en) and npm.
 
+Make a folder for your project
+
+```bash
+mkdir project
+```
+
+Go into a created forlder
+
+```bash
+cd project
+```
+
+Create a package.json file
+
+```bash
+npm init -y
+```
+
 Install and configure TypeScript.
 
 ```bash
-npm install typescript
+npm install typescript --save-dev
 ```
 
 After TypeScript installation, you should have the `tsc` command available in your project.
@@ -41,16 +59,31 @@ Instead of enabling `checkJs` globally, you can use following comments at the be
 
 This is convinient for temporarily bypass problematic files when transitioning from JavaScript to TypeScript and you don't have the capacity to address them immediately.
 
+Install the inherited tsconfig.json file
+
 ```bash
 npm install --save-dev @tsconfig/node20
 ```
 
+Install the [@types/node]() package for providing type definitions for the build-in Node.js APIs which are needed when the TypeScript compiler compiles TypeScript files.
+
+```bash
+npm install --save-dev @types/node
+```
+
 Create `src` for and `index.ts` TypeScript file inside of it.
+
+```bash
+mkdir src
+cd src
+touch index.ts
+```
 
 Insert this code into the `index.ts` file.
 
 ```typescript
-const { createServer } = require('node:http');
+import { createServer } from 'http';
+
 const hostname = '127.0.0.1';
 const port = 3000;
 const server = createServer((req, res) => {
@@ -61,12 +94,7 @@ const server = createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-```
-
-Install the [@types/node]() package for providing type definitions for the build-in Node.js APIs which are needed when the TypeScript compiler compiles TypeScript files.
-
-```bash
-npm install --save-dev @types/node
+});
 ```
 
 After editing and saving the file, run the TypeScript compiler.
