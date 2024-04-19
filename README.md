@@ -1,6 +1,6 @@
 # Using TypeScript with Node.js
 
-This is a template project for demonstrating how to integrate TypeScript with Node.js.
+This template project demonstrates how to integrate TypeScript with Node.js. It also covers linting, prettier, and debugging in Visual Studio Code.
 
 Install the latest version of [Node.js](https://nodejs.org/en) and npm.
 
@@ -122,7 +122,7 @@ Or open a web browser and go to: `localhost:3000`
 Install `nodemon` that automatically restarts the node application when file changes in the directory are detected.
 
 ```bash
-npm install nodemon
+npm install -D nodemon
 ```
 
 Create a configuration file `nodemon.json` for Nodemon. Add the following configuration into the file.
@@ -132,7 +132,7 @@ Create a configuration file `nodemon.json` for Nodemon. Add the following config
   "watch": ["src"],
   "ext": ".js, .ts",
   "ignore": [],
-  "exec": "tsc && node dist/server.js"
+  "exec": "tsc && node dist/index.js"
 }
 ```
 
@@ -145,7 +145,9 @@ nodemon
 Add the this configuration key value pair into the package.json file.
 
 ```json
-"watch": "nodemon"
+  "scripts": {
+    "watch": "nodemon"
+  },
 ```
 
 Now you should be able to start server in a watch mode.
@@ -170,24 +172,6 @@ npm install --save-dev @types/express
 
 If you can find type declarations for a less popular library, you may need to write custom type declarations files for a library. Read more about this in [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)
 
-## Run TypeScript files directly without type checking
-
-The tsx package allow you to run TypeScript files directly without type checking.
-
-```bash
-npm install tsx watch --save-dev
-```
-
-```bash
-npx tsx src/server.ts
-```
-
-To ensure your code is type-safe, you can run the TypeScript compiler in watch mode with the --noEmit flag in a separate terminal and get type errors without producing any output files.
-
-```bash
-npx tsc --watch -noEmit
-```
-
 ## Linting TypeScript
 
 Linting catches potential errors and enforces a consistant coding style. See [ESLint](https://www.npmjs.com/package/eslint).
@@ -204,7 +188,7 @@ Create `.eslintrc.json` file in your project root and add the following content 
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2024,
+    "ecmaVersion": "latest",
     "sourceType": "module",
     "project": "tsconfig.json"
   },
@@ -267,7 +251,7 @@ Modify the .eslintrc.json file as shown below.
 You can run Prettier to format your TypeScript files:
 
 ```bash
-npx prettier --write src/server.ts
+npx prettier --write src/index.ts
 ```
 
 You can configure your code editor to automatically fixes ESLint issues and prettier your code on save. [Use Prettier and ESLint in Visual Studio Code. Lint and Format your code](https://www.youtube.com/watch?v=kWIlrSorqFE)
