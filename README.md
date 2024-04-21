@@ -235,7 +235,6 @@ npm install -D eslint-config-prettier eslint-plugin-prettier
 Create `.prettierrc.json` configuration file.
 
 ```json
-//
 {
   "printWidth": 80,
   "singleQuote": true,
