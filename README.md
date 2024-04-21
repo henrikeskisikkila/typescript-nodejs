@@ -4,13 +4,13 @@ This template project demonstrates how to integrate TypeScript with Node.js. It 
 
 Install the latest version of [Node.js](https://nodejs.org/en) and npm.
 
-Make a folder for your project
+Make a folder for your project.
 
 ```bash
 mkdir project
 ```
 
-Go into a created forlder
+Open the project folder
 
 ```bash
 cd project
@@ -22,16 +22,23 @@ Create a package.json file
 npm init -y
 ```
 
+Add the following configuration to `package.json`
+
+```json
+
+"type": "module"
+```
+
 Install and configure TypeScript.
 
 ```bash
-npm install typescript --save-dev
+npm install -D typescript
 ```
 
 After TypeScript installation, you should have the `tsc` command available in your project.
 
 ```bash
-npx tsc --version
+tsc --version
 ```
 
 The TypeScript compiler needs a `tsconfig.json` configuration file. Create the file and add the following content into it.
@@ -40,8 +47,7 @@ The TypeScript compiler needs a `tsconfig.json` configuration file. Create the f
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true, // JavaScript files are allowed which can help transitioning a JavaScript project to TypeScript incrementally.
-    "outDir": "dist" // Output directory for compiled JavaScript files.
+    "outDir": "dist"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
@@ -50,25 +56,23 @@ The TypeScript compiler needs a `tsconfig.json` configuration file. Create the f
 
 `extends` defines a way to inherit from [another configuration file](https://github.com/tsconfig/bases/blob/main/bases/node20.json). Install this configuration as a npm package using the following command.
 
-Instead of enabling `checkJs` globally, you can use following comments at the beginning of each file:
+Install the inherited tsconfig.json file
+
+```bash
+npm install -D @tsconfig/node20
+```
+
+These comments are convinient for temporarily bypass problematic files when transitioning from JavaScript to TypeScript and you don't have the capacity to address them immediately. You can use the comments at the beginning of each file.
 
 - `// @ts-check`
 - `// @ts-nocheck`
 - `// @ts-ignore`
 - `// @ts-expect-error`
 
-This is convinient for temporarily bypass problematic files when transitioning from JavaScript to TypeScript and you don't have the capacity to address them immediately.
-
-Install the inherited tsconfig.json file
-
-```bash
-npm install --save-dev @tsconfig/node20
-```
-
 Install the [@types/node]() package for providing type definitions for the build-in Node.js APIs which are needed when the TypeScript compiler compiles TypeScript files.
 
 ```bash
-npm install --save-dev @types/node
+npm install -D @types/node
 ```
 
 Create `src` for and `index.ts` TypeScript file inside of it.
@@ -91,16 +95,16 @@ const server = createServer((req, res) => {
   res.setHeader('Content-Type', 'text/plain');
   res.end('Hello World');
 });
+
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
-});
 });
 ```
 
 After editing and saving the file, run the TypeScript compiler.
 
 ```bash
-npx tsc
+tsc
 ```
 
 After compiling the `index.ts` file from TypeScript to JavaScript, `dist` directory should contain the compiled `index.js` file.
@@ -142,7 +146,7 @@ Run the server by using nodemon.
 nodemon
 ```
 
-Add the this configuration key value pair into the package.json file.
+Add this configuration into the package.json file.
 
 ```json
   "scripts": {
@@ -177,7 +181,7 @@ If you can find type declarations for a less popular library, you may need to wr
 Linting catches potential errors and enforces a consistant coding style. See [ESLint](https://www.npmjs.com/package/eslint).
 
 ```bash
-npm install eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --save-dev
+npm install -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 
 ```
 
@@ -224,14 +228,14 @@ You can fine tune how Lint works by editing a `.eslintrc.json` file. [Configure 
 Install Prettier
 
 ```bash
-npm install --save-dev prettier
-npm install --save-dev eslint-config-prettier eslint-plugin-prettier
+npm install -D prettier
+npm install -D eslint-config-prettier eslint-plugin-prettier
 ```
 
-Create a Prettier configuration file.
+Create `.prettierrc.json` configuration file.
 
 ```json
-// .prettierrc.json
+//
 {
   "printWidth": 80,
   "singleQuote": true,
@@ -266,10 +270,9 @@ For debugging TypeScript code, you need to generate source maps. Add the followi
 }
 ```
 
-Create a launch configurationi file for Visual Code and TypeScript debugging.
+Create a launch configuration file `.vscode/launch.json` for Visual Code and TypeScript debugging.
 
 ```json
-//.vscode/launch.json
 {
   "version": "0.2.0",
   "configurations": [
